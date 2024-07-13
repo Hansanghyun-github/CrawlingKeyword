@@ -21,12 +21,26 @@ public class CrawlingController {
     private String SECRET_KEY;
 
     @GetMapping("/titles/new")
-    public NewTitlesResponse get(@RequestParam String secretKey, HttpServletResponse response){
+    public NewTitlesResponse get(@RequestParam("secretKey") String secretKey, HttpServletResponse response){
         if(!SECRET_KEY.equals(secretKey)){
             log.warn("invalid secret key");
             response.setStatus(HttpServletResponse.SC_NOT_FOUND);
             return null;
         }
-        return scheduledCrawlingService.getNewTitles();
+        NewTitlesResponse newTitles = scheduledCrawlingService.getNewTitles();
+        log.info("newTitles: \n{}", newTitles);
+        return newTitles;
+    }
+
+    @GetMapping("/titles/current")
+    public NewTitlesResponse getCurrentTitles(@RequestParam("secretKey") String secretKey, HttpServletResponse response){
+        if(!SECRET_KEY.equals(secretKey)){
+            log.warn("invalid secret key");
+            response.setStatus(HttpServletResponse.SC_NOT_FOUND);
+            return null;
+        }
+        NewTitlesResponse currentTitles = scheduledCrawlingService.getCurrentTitles();
+        log.info("currentTitles: \n{}", currentTitles);
+        return currentTitles;
     }
 }
