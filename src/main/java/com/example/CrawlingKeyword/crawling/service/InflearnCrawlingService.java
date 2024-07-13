@@ -29,7 +29,8 @@ public class InflearnCrawlingService {
             e.printStackTrace();
         }
 
-        // TODO nextResults null check
+        if(nextResults == null)
+            throw new RuntimeException("inflearn next results is null");
 
         log.debug("inflearnNextResults: {}", nextResults);
 

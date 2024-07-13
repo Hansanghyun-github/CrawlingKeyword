@@ -33,7 +33,8 @@ public class OkkyCrawlingService {
             e.printStackTrace();
         }
 
-        // TODO nextResults null check
+        if(nextResults == null)
+            throw new RuntimeException("okky next results is null");
 
         log.debug("okkyNextResults: {}", nextResults);
 
